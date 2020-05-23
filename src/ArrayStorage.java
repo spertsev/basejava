@@ -6,10 +6,10 @@ public class ArrayStorage {
     int sizeOfFilledStorage = 0;
 
     void clear() {
-        for (Resume currentResume : storage) {
-            currentResume = null;
-            sizeOfFilledStorage = 0;
+        for (int i = 0; i < sizeOfFilledStorage; i++) {
+            storage[i] = null;
         }
+        sizeOfFilledStorage = 0;
     }
 
     void save(Resume resume) {
@@ -22,8 +22,7 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        int i;
-        for (i = 0; i <= sizeOfFilledStorage - 1; i++) {
+        for (int i = 0; i < sizeOfFilledStorage; i++) {
             if (storage[i].uuid.equals(uuid)) {
                 return storage[i];
             }
@@ -34,10 +33,8 @@ public class ArrayStorage {
     void delete(String uuid) {
         if (get(uuid) == null) {
             System.out.println("There is no resume with this uuid in the storage");
-            return;
         } else {
-            int i;
-            for (i = 0; i <= sizeOfFilledStorage - 1; i++) {
+            for (int i = 0; i < sizeOfFilledStorage; i++) {
                 if (storage[i].uuid.equals(uuid)) {
                     storage[i] = storage[sizeOfFilledStorage - 1];
                     storage[sizeOfFilledStorage - 1] = null;
@@ -52,8 +49,7 @@ public class ArrayStorage {
      */
     Resume[] getAll() {
         Resume[] filledStorage = new Resume[sizeOfFilledStorage];
-        int i;
-        for (i = 0; i <= sizeOfFilledStorage - 1; i++) {
+        for (int i = 0; i < sizeOfFilledStorage; i++) {
             filledStorage[i] = storage[i];
         }
         return filledStorage;
