@@ -2,9 +2,6 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Arrays;
 
 public class ArrayStorage {
@@ -17,7 +14,7 @@ public class ArrayStorage {
             return;
         }
         String resumeUuid = resume.getUuid();
-        int resumeIndex = getResumeIndex(resumeUuid);
+        int resumeIndex = getIndex(resumeUuid);
         if (resumeIndex != -1) {
             System.out.printf("A resume with uuid '%s' already exists in the storage \n", resumeUuid);
             return;
@@ -26,23 +23,18 @@ public class ArrayStorage {
         size++;
     }
 
-    public void update(Resume resume) throws IOException {
+    public void update(Resume resume) {
         String resumeUuid = resume.getUuid();
-        int resumeIndex = getResumeIndex(resumeUuid);
+        int resumeIndex = getIndex(resumeUuid);
         if (resumeIndex == -1) {
             System.out.printf("There is no resume with uuid '%s' in the storage \n", resumeUuid);
             return;
         }
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.print("Введите uuid для обновления: ");
-        String uuidForUpdate = reader.readLine().trim().toLowerCase();
-        Resume resumeForUpdate = new Resume();
-        resumeForUpdate.setUuid(uuidForUpdate);
-        storage[resumeIndex] = resumeForUpdate;
+        storage[resumeIndex] = resume;
     }
 
     public Resume get(String uuid) {
-        int resumeIndex = getResumeIndex(uuid);
+        int resumeIndex = getIndex(uuid);
         if (resumeIndex == -1) {
             System.out.printf("There is no resume with uuid '%s' in the storage \n", uuid);
             return null;
@@ -58,7 +50,7 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-        int resumeIndex = getResumeIndex(uuid);
+        int resumeIndex = getIndex(uuid);
         if (resumeIndex == -1) {
             System.out.printf("There is no resume with uuid '%s' in the storage \n", uuid);
             return;
@@ -77,7 +69,7 @@ public class ArrayStorage {
         return size;
     }
 
-    private int getResumeIndex(String uuid) {
+    private int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 return i;
