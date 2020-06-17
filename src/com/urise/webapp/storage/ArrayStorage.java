@@ -11,16 +11,12 @@ public class ArrayStorage {
     public void save(Resume resume) {
         if (storage.length == size) {
             System.out.println("The storage is full, we can't add any more");
-            return;
+        } else if (getIndex(resume.getUuid()) != -1) {
+            System.out.printf("A resume with uuid '%s' already exists in the storage \n", resume.getUuid());
+        } else {
+            storage[size] = resume;
+            size++;
         }
-        String resumeUuid = resume.getUuid();
-        int resumeIndex = getIndex(resumeUuid);
-        if (resumeIndex != -1) {
-            System.out.printf("A resume with uuid '%s' already exists in the storage \n", resumeUuid);
-            return;
-        }
-        storage[size] = resume;
-        size++;
     }
 
     public void update(Resume resume) {
@@ -28,9 +24,9 @@ public class ArrayStorage {
         int resumeIndex = getIndex(resumeUuid);
         if (resumeIndex == -1) {
             System.out.printf("There is no resume with uuid '%s' in the storage \n", resumeUuid);
-            return;
+        } else {
+            storage[resumeIndex] = resume;
         }
-        storage[resumeIndex] = resume;
     }
 
     public Resume get(String uuid) {
