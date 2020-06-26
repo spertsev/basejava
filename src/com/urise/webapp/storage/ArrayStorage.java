@@ -5,7 +5,8 @@ import com.urise.webapp.model.Resume;
 import java.util.Arrays;
 
 public class ArrayStorage {
-    Resume[] storage = new Resume[10000];
+    private static final int STORAGE_LIMIT = 10000;
+    Resume[] storage = new Resume[STORAGE_LIMIT];
     int size = 0;
 
     public void save(Resume resume) {
