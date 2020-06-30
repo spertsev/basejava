@@ -50,7 +50,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     protected abstract boolean isResumeExisted(Resume r);
 
-    public void save(Resume r) {
+    public final void save(Resume r) {
         if (isResumeExisted(r)) {
             System.out.println("Resume " + r.getUuid() + " already exist");
         } else if (size >= STORAGE_LIMIT) {
@@ -62,7 +62,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     protected abstract void deleteFromStorage(String uuid);
 
-    public void delete(String uuid) {
+    public final void delete(String uuid) {
         Resume searchResume = new Resume();
         searchResume.setUuid(uuid);
         if (!isResumeExisted(searchResume)) {
