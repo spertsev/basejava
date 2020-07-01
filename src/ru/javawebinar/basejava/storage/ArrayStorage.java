@@ -16,19 +16,12 @@ public class ArrayStorage extends AbstractArrayStorage {
         return -1;
     }
 
-    protected void addToStorage(Resume r) {
-        storage[size] = r;
-        size++;
+    protected void addToStorage(int foundIndex, Resume resumeForAdd) {
+        storage[size] = resumeForAdd;
     }
 
-    protected boolean isResumeExisted(Resume r) {
-        return getIndex(r.getUuid()) != -1;
-    }
-
-    protected void deleteFromStorage(String uuid) {
-        storage[getIndex(uuid)] = storage[size - 1];
-        storage[size - 1] = null;
-        size--;
+    protected void moveElementsForDelete(int index) {
+        storage[index] = storage[size - 1];
     }
 
 }

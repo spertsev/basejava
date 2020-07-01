@@ -12,22 +12,14 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         return Arrays.binarySearch(storage, 0, size, searchKey);
     }
 
-    protected void addToStorage(Resume r) {
-        int binarySearchIndex = getIndex(r.getUuid());
-        int targetIndex = -binarySearchIndex - 1;
+    protected void addToStorage(int foundIndex, Resume resumeForAdd) {
+        int targetIndex = -foundIndex - 1;
         System.arraycopy(storage, targetIndex, storage, targetIndex + 1, size - targetIndex);
-        storage[targetIndex] = r;
-        size++;
+        storage[targetIndex] = resumeForAdd;
     }
 
-    protected boolean isResumeExisted(Resume r) {
-        return getIndex(r.getUuid()) >= 0;
-    }
-
-    protected void deleteFromStorage(String uuid) {
-        int binarySearchIndex = getIndex(uuid);
-        System.arraycopy(storage, binarySearchIndex + 1, storage, binarySearchIndex, size - binarySearchIndex);
-        size--;
+    protected void moveElementsForDelete(int index) {
+        System.arraycopy(storage, index + 1, storage, index, size - index);
     }
 
 }
