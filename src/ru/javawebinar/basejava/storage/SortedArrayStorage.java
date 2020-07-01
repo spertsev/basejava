@@ -12,14 +12,18 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         return Arrays.binarySearch(storage, 0, size, searchKey);
     }
 
-    protected void addToStorage(int foundIndex, Resume resumeForAdd) {
-        int targetIndex = -foundIndex - 1;
-        System.arraycopy(storage, targetIndex, storage, targetIndex + 1, size - targetIndex);
-        storage[targetIndex] = resumeForAdd;
+    protected void addToStorage(int binarySearchIndex, Resume resumeForAdd) {
+        int index = -binarySearchIndex - 1;
+        System.arraycopy(storage, index, storage, index + 1, size - index);
+        storage[index] = resumeForAdd;
     }
 
     protected void moveElementsForDelete(int index) {
-        System.arraycopy(storage, index + 1, storage, index, size - index);
+        int lengthOfMovePart = size - index;
+        if (size == storage.length) {
+            lengthOfMovePart--;
+        }
+        System.arraycopy(storage, index + 1, storage, index, lengthOfMovePart);
     }
 
 }
