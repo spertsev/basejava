@@ -19,11 +19,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     protected void moveElementsForDelete(int index) {
-        int lengthOfMovePart = size - index;
-        if (size == storage.length) {
-            lengthOfMovePart--;
-        }
-        System.arraycopy(storage, index + 1, storage, index, lengthOfMovePart);
+        System.arraycopy(storage, index + 1, storage, index, size - index - 1);
     }
 
 }
